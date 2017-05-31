@@ -2,11 +2,14 @@ Trivial Chase Psuedo --
 
 HTML will be simple. A title, a timer below the title, and a div to take up a rectangle in the middle of the page that will get $("div").html("Each Question")
 
-Change the background color of the div when the question changes.
+Change the background color of the div when the question changes?
+		button in the middle of the page will start the game > write question onto page and  
 
-Place a header on the page that will $("chaseQuest").html for each new question. 
-	4 radio buttons for potential answers. One .btn for a submit button. 
+Place a header on the page that will $("chaseQuest").html for each new question.
+
+begin 10 second countdown. If answer submit clearTimeout, run checkAnswer(), if right congrats, else wrong. if timeout finishes set question response to unanswered.
+ 
+	$("chaseAnswer").html 4 radio buttons for potential answers and one .btn for a submit button. 
 		function checkRightAnswer() = if/else for right or wrong answer.
 			after setTimeout 5000 present next question.
 
-All of the above will occur within 120 seconds. 120000ms
