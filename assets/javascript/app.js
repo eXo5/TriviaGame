@@ -1,17 +1,30 @@
+$(document).ready(function() {
+// Loads the trivia title page on window load
+	function welcomeToTriviaChase() {
+		welcomePage = "<h1> Time<br><span id='countDown'>" + qT + "</span></h1>" + "<div class='ui-block-b'><button id='startGame'>Start Game</button></div>";
+	$("#trivialChase").html(welcomePage);
+	}
 
+welcomeToTriviaChase();
+// on click event for start button	
+	$("#startGame").on("click", function(){
+		gameHTML();
+		pineapples();
+	});//close trivia
+});//close window load
 
-//object containing questions and answers
+//object containing questions and correct answers.
 var questionList = [
 
 		{ 	question: "Is Javascript easier than it looks?",
 			answer: true
 		},
 		{
-			question: "Is futurama better than the Big Bang Theory?",
-			answer : true
+			question: "Which of the following was a 1939 World's Fair exhibit in New York?",
+			answer : "Futurama"
 		},
 		{
-			question:"Which of these scientists was in Futurama?",
+			question:"Which of these scientists voiced himself in Futurama?",
 			answer : "Stephen Hawking"
 		},
 		{
@@ -24,8 +37,8 @@ var questionList = [
 		{	question:"Who wrote '1984'?",
 			answer: "George Orwell"
 		} ,
-		{	question:"Everybody Loves Hypnotoad.",
-			answer: true
+		{	question:"What is the greatest television show of the year 3000?",
+			answer: "Everybody Loves Hypnotoad"
 		},
 		{
 			question:"What is the capital of Australia", 
@@ -45,43 +58,39 @@ var questionList = [
 			answer: true}
 	];
 
-//questionList[0].question 
-//if radiosubmitted == questionList[0].answer 
-///onFormSubmit - jQuery to select element on form, selected element == questionList.[0].answer
-//get selectedradio button getvalue
+var answerList = [
+		["true", "false"],
+		["Tomorrowland", "Futurama", "New York World Exposition", "Man, Nature, Technology" ],
+		["Stephen Hawking", "Albert Einstein", "Isaac Newton", "Albert Hoffman"],
+		["Henry Fonda", "Frank Sinatra", "Marlon Brando", "James Dean"],
+		["Betty", "Georgia", "Julia", "Rebecca"],
+		["Alduous Huxley", "George Orwell", "George R.R. Martin", "J.R. Tolkien"],
+		["Everybody Loves Hypnotoad", "Everybody Loves Hypnotoad","Everybody Loves Hypnotoad", "Everybody Loves Hypnotoad"],
+		["Melbourne", "Sydney", "Canberra", "Queensland" ],
+		["Mars", "Jupiter", "Uranus", "Earth"],
+		["Oregon", "New York", "Texas", "Alabama"],
+		["Tuscaloosa, Alabama", "Greenbow, Alabama", "Atlanta, Georgia", "Mobile, Alabama"],
+		["All glory to the Hypnotoad", "All glory to the Hypnotoad", "All glory to the Hypnotoad","All glory to the Hypnotoad"]
+];
 
-	//Declared Variables
-var property;
-var questionsTime;
-	function checkQnA() {
-	for (var i = 0; i < questionList.length; i++) {
-		console.log(questionList[i].question);
-		console.log(questionList[i].answer);
-	$("#chaseQuest").append(questionList[i].question);
-	}
-}	
-var writeQuestion = (Object.getOwnPropertyNames(questionList));
-	//This was 'called' as a test
-	console.log("var writeQuestion = (Object.getOwnPropertyNames(questionList)); :" + writeQuestion);
-
-function getQ() {//I hope to use getQ to $.html the questions into the html on the fly
-	for (var i = 0; i < questionList.length; i++)
-		console.log(questionList[i]);
-
-	var nextQuestion = $("<div>").html(questionList[i]);
-	//This writes the question the html box
-	
+//kitakat = break page between questions
+function kitkat(){//need to iterate into next page i++, need to call the HTML onto the page, need to reset the countdown and call the time function again, else show the results page
+var i = 0;
+//if(i < )
+	if (i < 12) {
+		i++;
+console.log(i + ":" + answerList[i]);
+setTimeout(kitkat,3000);
+}
 };
 
-function displayQ() {
-	if (questionList.indexOf("Is Javascript easier than it looks?") === writeQuestion[0])
-	console.log("holy shit"); //fun fact - I couldn't get it to holy shit
-	
-};
-
-
-//these 
-//getQ();
-console.log(Object.entries(questionList));
-//displayQ();
-checkQnA();
+var welcomePage;
+var countDown = setInterval(decrement,1000)
+	function decrement(){
+		qT--;
+	};
+var score = 0;
+var wrongScore = 0;
+var unanswered = 0;
+var submitButton = false; //short for button property that will start
+var qT=15; //question timer: 15 seconds

@@ -5,11 +5,12 @@ HTML will be simple. A title, a timer below the title, and a div to take up a re
 Change the background color of the div when the question changes?
 		button in the middle of the page will start the game > write question onto page and  
 
-Place a header on the page that will $("chaseQuest").html for each new question.
+Place a div on the page that will .html for each new question.
 
-begin 10 second countdown. If answer submit clearTimeout, run checkAnswer(), if right congrats, else wrong. if timeout finishes set question response to unanswered.
+begin 15 second countdown. If (answer submit) clearTimeout, run checkAnswer(), if right congrats, else wrong. if timeout finishes set question response to unanswered.
  
-	$("chaseAnswer").html 4 radio buttons for potential answers and one .btn for a submit button. 
+	.html buttons for potential answers 
 		function checkRightAnswer() = if/else for right or wrong answer.
 			after setTimeout 5000 present next question.
+
 
