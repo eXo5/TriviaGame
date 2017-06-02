@@ -1,6 +1,7 @@
 /* */
 
 body {
+	background-color:green;
 
 }
 
@@ -13,23 +14,43 @@ h1.#title {
 }
 
 h1{
+	margin-top:1%;
 	text-align: center;
 }
 
-#trivialchase {
-	max-width:800px;
-	max-height:500px;
+#trivialChase {
+	width:800px;
+	height:500px;
 	margin:auto;
-	background-color: green;
+	text-align:center;
+	background-color: white;
 }
 
 #startGame {
-	margin-left:46%;
+	
 	text-align:center;
 }
 
-#submitBtn{
-	margin:auto;
+.first {
+	text-align: left;
+	float:left;
+	margin-top:10px;
+	width:95%;
+}
+
+.answer {
+	text-align: left;
+	width:95%;
+	float:left;
+	clear:left;
+	height:30px;
+	border:groove 1px red;
+	margin-top:15px;
+	margin-left: 5%;
+}
+
+.wrong {
+	margin-top:10px;
 }
 @media all and (max-width:640px) and (min-width:320px) {
   
