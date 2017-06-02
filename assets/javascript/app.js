@@ -1,110 +1,125 @@
-$(document).ready(function() {
+// $(document).ready(function() {
+	//I'm thinking this document ready might be entirely pointless
+	//var list
+var welcomePage;
+var qT; 				//question timer: 15 seconds
+var aloePlant;			//main var for .html --don't ask
+var response;			//$(document).on("click", this.text)
+var score = 0;			//
+var wrongScore = 0; 	//
+var noResponse = 0; 	//counter for timeout questions
+var i = -1; //counter used to iterate through questions and check answers
+var countDown; 			//see timer()
+var setQuesTimer;		//see
+
 // Loads the trivia title page on window load
 	function welcomeToTriviaChase() {
-		welcomePage = "<h1>Welcome</h1><br><p>Please Press 'Start Game' to begin.</p>" + "<div class='ui-block-b'><button id='startGame'>Start Game</button></div>";
+		welcomePage = "<div id='welcoming'><h1>Welcome</h1><br><p>Please Press 'Start Game' to begin.</p><div class='button'><button class='btn btn-info btn-warning' id='startGame'>Start Game</button></div></div>";
 	$("#trivialChase").html(welcomePage);
 	};
 
-welcomeToTriviaChase();
-// on click event for start button
 
-});//close document on load
+// on click for start button
 	$("#trivialChase").on("click", "#startGame", function(){
 		i++;
 		showQuestion();
-		//time();
-	});//close onClick
+	});//close start button
 
-	$("#trivialChase").on("click", ".answer", function(){
-		clearInterval();
+	$("#trivialChase").on("click", ".answer", function(){		
+		clearInterval(countDown); //onClick for comparing questions and answers
 		response = $(this).text();
-		console.log($(this).text());
-		if((i === 6) || (i === 12)) {
+		console.log(response);
+		if((i === 6) || (i === 11)) { //allGloryToTheHypnotoad;
 			correct();
 	
 		}
-		else if(response == questionList[i].answer){
-			//clearInterval(countDown);
+		else if(response === questionList[i].answer){
 			correct();
 		}	
 			else {
-				clearInterval(countDown);
 				wrong();
 			}	
 	});
+welcomeToTriviaChase();
 
-//var list
-var welcomePage;
-var qT = 20; //question timer: 15 seconds
-var aloePlant;//main var for .html
-var response;
-var score = 0;
-var wrongScore = 0;
-var noResponse = 0;
-var i = -1;
-var countDown = setInterval(decrement,1000);
 //func list
 
-//function time(){
-	 //countDown = setInterval(decrement,1000)
-//timers ARE HARD. Timer currently loads on document.ready and if you run out of time it starts to iterate through the answers in console. 
-	 //Timer got defined entirely in one spot inside of the var list.
+function timer() {
+//note to self - don't use timers
+//timers === pains in the ass.
+countDown = setInterval(decrement, 1000);
+qT = 16;
 	 function decrement() {
 		if (qT>0) {
-			qT--
-			$("#countDown").html("<h2><span id='countDown'>" + qT + "</span></h2>")
+			qT--;
+			$(".timer").html("<h2>Time</h2><h3>" + qT + "</h3>")
 		}
 		if (qT === 0) {
-			//timeOut();
-			$("#countDown").html("<h2>Times UP!</h2>");
 			clearInterval(countDown);
-			function timeOut() {
-				clearInterval(countDown);
-				noResponse++;
-				aloePlant = "<h1>Whoops!</h1><p>Looks like you ran out of time.</p><p>The correct answer was " + questionList[i].answer + ".</p>"
-				$("#trivialChase").html(aloePlant);
-			}	
-			i++;
-			setTimeout(showQuestion,4000);
+			$(".timer").html("<h2>Times UP!</h2>");
+			outOfTime();
 
-			console.log(clearInterval(countDown));
 		}
 	}
-	
-//}
-function showQuestion() {
-		qT = 20;
-	aloePlant = "<h1><span id='countDown'><br>" + countDown + "</span></h1>" + "<div class='question'><h2 class='quest'>" + questionList[i].question + "</h2></div>" + "<div id='answers'>" + "<h3 class='first answer'>A) " + answerList[i][0] + "</h3><h3 class='answer'>B) " + answerList[i][1] +  "</h3><h3 class='answer'>C) " + answerList[i][2] + "</h3><h3 class='answer'>D) " + answerList[i][3] + " </h3></div>";
-	$("#trivialChase").html(aloePlant);
 }
+function showQuestion() {
+	
+		clearTimeout(setQuesTimer);
+		timer();
+		aloePlant = "<div class='question'><h2 class='quest'>" + questionList[i].question + "</h2></div>" + "<div id='answers'>" + "<h3 class='first answer'>A) " + answerList[i][0] + "</h3><h3 class='answer'>B) " + answerList[i][1] +  "</h3><h3 class='answer'>C) " + answerList[i][2] + "</h3><h3 class='answer'>D) " + answerList[i][3] + "</h3></div>";
+		$("#trivialChase").html(aloePlant);
+		}
 
 function correct() {
-	clearInterval();
+	clearInterval(countDown);
+	setQuesTimer = setTimeout(showQuestion, 3000);
 	score++;
-	aloePlant = "<h1>Congratulations!<br><br>" + questionList[i].answer + " is correct!"
+	aloePlant = "<h1>Congratulations!<br><br>" + questionList[i].answer + " is correct!";
 	$("#trivialChase").html(aloePlant);
-	if (i<12) {
+	if (i<11) {
 		
 		i++;
-		setTimeout(showQuestion,3000);
-		}
-	else { }
+		//setTimeout(showQuestion,3000);
+	}
+	else {
+		endGame();
+	}
 console.log(questionList[i].question);
 
-	}
+}
 
 
 function wrong(){
- 	clearInterval();
+	clearInterval(countDown);
+ 	var setQuesTimer = setTimeout(showQuestion, 3000);
  	wrongScore++;
  	aloePlant = "<h1><br>Sorry!</h1><br><h2> The correct answer was " + questionList[i].answer + ".</h2>"
  	$("#trivialChase").html(aloePlant);
- 	if (i<12) {
+ 	if (i<11) {
 		i++;
-		setTimeout(showQuestion,4000);
-		}
-	else { }
+		//setTimeout(showQuestion,4000);
+	}
+	else {
+		endGame();
+	}
 console.log(questionList[i].question);
+}
+
+function outOfTime() {
+	clearInterval(countDown);
+	noResponse++;
+	aloePlant = "<h1>Whoops!</h1><p>Looks like you ran out of time.</p>";
+	$("#trivialChase").html(aloePlant);
+			i++;
+	setTimeout(showQuestion, 3000);
+}
+
+function endGame() {
+	clearInterval(countDown);
+	clearTimeout(setQuesTimer);
+	aloePlant = "<h1>Congratulations!</h1><h1 class='answer'>You answered: " + score + "correct!</h1><h1 class='answer'>You missed: " + wrongScore + ".</h1><h1 class='answer'>Time Expired: " + noResponse + "</h1><br><div class='button'><button class='btn btn-info btn-warning' id='startGame'>Reset Game</button></div></div>"
+	$("#trivialChase").html(aloePlant);
+
 }
 
 //object containing questions and corresponding answers.
@@ -121,7 +136,7 @@ var questionList = [
 			answer : "A) Stephen Hawking"
 		},
 		{
-			question:"Who starred in the hit 1955 'Rebel Without a Case'?",
+			question:"Who starred in the hit 1955 'Rebel Without a Cause'?",
 			answer: "D) James Dean"
 		},
 		{	question:"Who is Winston's lover in '1984'?",
@@ -167,14 +182,3 @@ var answerList = [
 		["Tuscaloosa, Alabama", "Greenbow, Alabama", "Atlanta, Georgia", "Mobile, Alabama"],
 		["All glory to the Hypnotoad", "All glory to the Hypnotoad", "All glory to the Hypnotoad","All glory to the Hypnotoad"],
 ];
-
-function kitkat(){//need to iterate into next page i++, need to call the HTML onto the page, need to reset the countdown and call the time function again, else show the results page
-	if (i<12) {
-		
-		i++;
-		//setTimeout(showQuestion,4000)
-		}
-	else { }
-console.log(questionList[i].question);
-
-}

@@ -11,13 +11,30 @@ h1.#title {
 	margin: 0 auto;
 	margin-top:2%;
 	font-size: 50px;
+	position:relative;
+}
+
+#welcoming {
+	 display:flex;
+	 flex-direction:column;
+	 justify-content:center;
 }
 
 h1{
-	margin-top:1%;
 	text-align: center;
 }
+h2 {
+	text-align: center;
+}
+h3 {
+	text-align:center;
+}
 
+.timer {
+	width:50%;
+	margin: 0 auto;
+	height:100px;
+}
 #trivialChase {
 	width:800px;
 	height:500px;
