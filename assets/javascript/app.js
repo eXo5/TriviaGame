@@ -14,8 +14,12 @@ var setQuesTimer;		//see
 
 // Loads the trivia title page on window load
 	function welcomeToTriviaChase() {
+		i = -1;
+		score = 0;
+		wrongScore = 0;
+		noResponse = 0;
 		welcomePage = "<div id='welcoming'><h1>Welcome</h1><br><p>Please Press 'Start Game' to begin.</p><div class='button'><button class='btn btn-info btn-warning' id='startGame'>Start Game</button></div></div>";
-	$("#trivialChase").html(welcomePage);
+		$("#trivialChase").html(welcomePage);
 	};
 
 
@@ -63,10 +67,10 @@ qT = 16;
 	}
 }
 function showQuestion() {
-	
+
 		clearTimeout(setQuesTimer);
 		timer();
-		aloePlant = "<div class='question'><h2 class='quest'>" + questionList[i].question + "</h2></div>" + "<div id='answers'>" + "<h3 class='first answer'>A) " + answerList[i][0] + "</h3><h3 class='answer'>B) " + answerList[i][1] +  "</h3><h3 class='answer'>C) " + answerList[i][2] + "</h3><h3 class='answer'>D) " + answerList[i][3] + "</h3></div>";
+		aloePlant = "<div class='question'><h2 class='quest'>" + questionList[i].question + "</h2></div>" + "<div id='answers'>" + "<h3 class='first answer'> A) " + answerList[i][0] + "</h3><h3 class='answer'> B) " + answerList[i][1] +  "</h3><h3 class='answer'> C) " + answerList[i][2] + "</h3><h3 class='answer'> D) " + answerList[i][3] + "</h3></div>";
 		$("#trivialChase").html(aloePlant);
 		}
 
@@ -117,53 +121,56 @@ function outOfTime() {
 function endGame() {
 	clearInterval(countDown);
 	clearTimeout(setQuesTimer);
-	aloePlant = "<h1>Congratulations!</h1><h1 class='answer'>You answered: " + score + "correct!</h1><h1 class='answer'>You missed: " + wrongScore + ".</h1><h1 class='answer'>Time Expired: " + noResponse + "</h1><br><div class='button'><button class='btn btn-info btn-warning' id='startGame'>Reset Game</button></div></div>"
+	aloePlant = "<h1>Congratulations!</h1><h1 class='endGame'>You answered: " + score + " correct!</h1><h1 class='endGame'>You missed: " + wrongScore + "</h1><h1 class='endGame'>Time Expired: " + noResponse + "</h1><br><div class='button'><button class='btn btn-info btn-warning' id='reset'>Reset Game</button></div></div>"
+	$(".timer").html(" ");
 	$("#trivialChase").html(aloePlant);
-
+ 	$("#trivialChase").on("click", "#reset", function(){
+ 		welcomeToTriviaChase();
+ 	});
 }
 
 //object containing questions and corresponding answers.
 var questionList = [
 		{ 	question: "Is Javascript easier than it looks?", //If you've had your coffee.
-			answer: "A) Yes"
+			answer: " A) Yes"
 		},
 		{
 			question: "Which of the following was a 1939 World's Fair exhibit in New York?",
-			answer : "B) Futurama"
+			answer : " B) Futurama"
 		},
 		{
 			question:"Which of these scientists voiced himself in Futurama?",
-			answer : "A) Stephen Hawking"
+			answer : " A) Stephen Hawking"
 		},
 		{
 			question:"Who starred in the hit 1955 'Rebel Without a Cause'?",
-			answer: "D) James Dean"
+			answer: " D) James Dean"
 		},
 		{	question:"Who is Winston's lover in '1984'?",
-			answer : "C) Julia"
+			answer : " C) Julia"
 		},
 		{	question:"Who wrote '1984'?",
-			answer: "B) George Orwell"
+			answer: " B) George Orwell"
 		} ,
 		{	question:"What is the greatest television show of the year 3000?",
-			answer: "Everybody Loves Hypnotoad"
+			answer: " Everybody Loves Hypnotoad"
 		},
 		{
 			question:"What is the capital of Australia", 
-			answer: "C) Canberra"
+			answer: " C) Canberra"
 		},
 		{
 			question:"What was the first planet to be discovered in 1781", 
-			answer: "C) Uranus"
+			answer: " C) Uranus"
 		},
 		{	question:"Where would you expect to hear 'Roll Tide'?",
-			answer: "D) Alabama"
+			answer: " D) Alabama"
 		},
 		{	question:"Where were Forrest Gump and Jenny from?",
-			answer: "B) Greenbow, Alabama"
+			answer: " B) Greenbow, Alabama"
 		},
 		{	question:"All Glory to the Hypnotoad", 
-			answer: "All Glory to the Hypnotoad"
+			answer: " All Glory to the Hypnotoad"
 		}
 	];
 //array of answers wherein one of the choices in each array will return 
